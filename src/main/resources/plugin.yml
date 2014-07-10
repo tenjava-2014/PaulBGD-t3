@@ -1,0 +1,3 @@
+name: PaulBGD-t3
+main: com.tenjava.entries.PaulBGD.t3.TenJava
+version: '${project.version}'
