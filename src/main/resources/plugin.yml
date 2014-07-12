@@ -1,3 +1,8 @@
-name: PaulBGD-t3
+name: NetherInfiltration-T3
 main: com.tenjava.entries.PaulBGD.t3.TenJava
 version: '${project.version}'
+
+commands:
+  test:
+    usage: /test
+    description: is a test command
