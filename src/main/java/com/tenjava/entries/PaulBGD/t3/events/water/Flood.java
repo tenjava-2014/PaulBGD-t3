@@ -10,7 +10,7 @@ public class Flood extends NaturalEvent {
     private final BlockFace[] faces = new BlockFace[]{BlockFace.NORTH, BlockFace.WEST, BlockFace.EAST, BlockFace.WEST};
 
     public Flood() {
-        super("Flood", 10);
+        super("Flood", 5);
 
         NaturalEvent.getEvents().add(this);
     }

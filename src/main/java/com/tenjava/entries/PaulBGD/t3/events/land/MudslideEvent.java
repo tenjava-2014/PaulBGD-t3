@@ -23,7 +23,7 @@ public class MudslideEvent extends NaturalEvent implements Listener {
     private final HashMap<Integer, List<Block>> timings = new HashMap<>();
 
     public MudslideEvent() {
-        super("Mudslide", 1);
+        super("Mudslide", 3);
 
         NaturalEvent.getEvents().add(this);
         Bukkit.getPluginManager().registerEvents(this, TenJava.getPlugin());
@@ -60,6 +60,7 @@ public class MudslideEvent extends NaturalEvent implements Listener {
             byte data = block.getData();
             block.setType(Material.AIR);
             FallingBlock fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation(), type, data);
+            fallingBlock.setDropItem(false);
             fallingBlock.setVelocity(new Vector(toGo.getModX() / 2, toGo.getModY() / 3, toGo.getModZ() / 2));
         }
     }
@@ -76,7 +77,6 @@ public class MudslideEvent extends NaturalEvent implements Listener {
             @Override
             public void run() {
                 mudslideAfter(block, id);
-                System.out.println("Mudsliding");
             }
         }.runTaskLater(TenJava.getPlugin(), timings.get(id).size() / 5l);
     }

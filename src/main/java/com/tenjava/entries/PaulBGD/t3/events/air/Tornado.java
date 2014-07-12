@@ -2,7 +2,6 @@ package com.tenjava.entries.PaulBGD.t3.events.air;
 
 import com.tenjava.entries.PaulBGD.t3.TenJava;
 import com.tenjava.entries.PaulBGD.t3.events.NaturalEvent;
-import com.tenjava.entries.PaulBGD.t3.utils.Timer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,14 +19,14 @@ public class Tornado extends NaturalEvent {
     private final BlockFace[] relative = BlockFace.values();
 
     public Tornado() {
-        super("Tornado", 3);
+        super("Tornado", 1);
 
         NaturalEvent.getEvents().add(this);
     }
 
     @Override
     public boolean canOccur(Block block) {
-        return false;
+        return true;
     }
 
     @Override
@@ -38,9 +37,8 @@ public class Tornado extends NaturalEvent {
     public class TornadoObject extends BukkitRunnable {
 
         private final int maxDuration = (20 + TenJava.getRandom().nextInt(100)) * 10;
-        private int duration = 0;
         List<Entity> blocks = new ArrayList<>();
-
+        private int duration = 0;
         private Location location;
 
         public TornadoObject(Location start) {
@@ -61,9 +59,6 @@ public class Tornado extends NaturalEvent {
                 location.add(0, 1, 0);
             }
             for (BlockFace face : relative) {
-                if (TenJava.getRandom().nextInt(3) == 0) {
-                    continue;
-                }
                 Block block = location.getBlock().getRelative(face);
                 if (block.getRelative(BlockFace.UP).isEmpty() && block.getType() != Material.OBSIDIAN && block.getType() != Material.STONE && block.getType() != Material.BEDROCK) {
                     Material type = block.getType();
@@ -71,6 +66,7 @@ public class Tornado extends NaturalEvent {
                     block.setType(Material.AIR);
                     FallingBlock fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation(), type, data);
                     fallingBlock.setVelocity(new Vector(0, 5, 0));
+                    fallingBlock.setDropItem(false);
                     fallingBlock.teleport(fallingBlock.getLocation().add(0, 1, 0));
                     blocks.add(fallingBlock);
                     for (Entity entity : fallingBlock.getNearbyEntities(1.5, 1.5, 1.5)) {

@@ -14,32 +14,39 @@ public class NaturalDisasterStarter extends BukkitRunnable {
     private int id = 0;
 
     public NaturalDisasterStarter() {
-        this.runTaskTimer(TenJava.getPlugin(), 20l, 20l);
+        this.runTaskTimer(TenJava.getPlugin(), 5 * 20l, 5 * 20l);
     }
 
     @Override
     public void run() {
-        for (World world : Bukkit.getWorlds()) {
-            for (NaturalEvent disaster : NaturalEvent.getEvents()) {
+        for (final World world : Bukkit.getWorlds()) {
+            for (final NaturalEvent disaster : NaturalEvent.getEvents()) {
                 if (disaster.getAllowedWorlds().contains(world)) {
                     // we can cause DISASTERS! WHOO!
-                    for (Chunk chunk : world.getLoadedChunks()) {
-                        for (int x = 0; x < 16; x++) {
-                            z:
-                            for (int z = 0; z < 16; z++) {
-                                Block block = chunk.getBlock(x, 0, z);
-                                while (block.getType() != Material.AIR) {
-                                    block = block.getRelative(BlockFace.UP);
-                                    if (block.getY() >= world.getMaxHeight()) {
-                                        continue z;
+                    int i = 0;
+                    for (final Chunk chunk : world.getLoadedChunks()) {
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                for (int x = 0; x < 16; x++) {
+                                    z:
+                                    for (int z = 0; z < 16; z++) {
+                                        Block block = world.getHighestBlockAt(chunk.getBlock(x, 0, z).getLocation());
+                                        while (block.getType() != Material.AIR) {
+                                            block = block.getRelative(BlockFace.UP);
+                                            if (block.getY() >= world.getMaxHeight()) {
+                                                continue z;
+                                            }
+                                        }
+                                        block = block.getRelative(BlockFace.DOWN);
+                                        if (disaster.canOccur(block) && TenJava.getRandom().nextInt(10000000) < disaster.getChance()) {
+                                            TenJava.getPlugin().getLogger().info("Disaster!: " + disaster.getName());
+                                            disaster.start(block, id++);
+                                        }
                                     }
                                 }
-                                block = block.getRelative(BlockFace.DOWN);
-                                if (disaster.canOccur(block) && TenJava.getRandom().nextInt(100) == disaster.getChance()) {
-                                    disaster.start(block, id++);
-                                }
                             }
-                        }
+                        }.runTaskLater(TenJava.getPlugin(), i * 5l);
                     }
                 }
             }
