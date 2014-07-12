@@ -74,8 +74,12 @@ public class Tornado extends NaturalEvent {
                 }
             }
             Iterator<Entity> it = blocks.iterator();
-            for (FallingBlock block : location.getWorld().getEntitiesByClass(FallingBlock.class)) {
-                System.out.println("Found block " + block.getLocation().getY() + " " + location.getY());
+            while(it.hasNext()) {
+                Entity block = it.next();
+                if(!block.isValid()) {
+                    it.remove();
+                    continue;
+                }
                 if (block.getLocation().getY() >= location.getY()) {
                     System.out.println("good y");
                     double twoDistance = twoDimesionalDistance(block.getLocation(), location);
