@@ -26,11 +26,11 @@ public class TenJava extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        this.getCommand("test").setExecutor(new TestCommand());
-
         new MudslideEvent();
         new Tornado();
         new Flood();
+
+        new NaturalDisasterStarter();
     }
 
     public static TenJava getPlugin() {
