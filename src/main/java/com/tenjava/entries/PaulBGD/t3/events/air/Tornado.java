@@ -50,7 +50,9 @@ public class Tornado extends NaturalEvent {
 
         @Override
         public void run() {
-            location.add(direction(TenJava.getRandom().nextInt(2)), 0, direction(TenJava.getRandom().nextInt(2)));
+            double movedX = direction(TenJava.getRandom().nextInt(2));
+            double movedZ = direction(TenJava.getRandom().nextInt(2));
+            location.add(movedX, 0, movedZ);
             while (location.getBlock().isEmpty()) {
                 location.subtract(0, 1, 0);
             }
@@ -81,13 +83,9 @@ public class Tornado extends NaturalEvent {
                     continue;
                 }
                 if (block.getLocation().getY() >= location.getY()) {
-                    System.out.println("good y");
                     double twoDistance = twoDimesionalDistance(block.getLocation(), location);
                     if (twoDistance < 100) {
-                        System.out.println("close");
-                        double xDiff = location.getX() - block.getLocation().getX();
-                        double zDiff = location.getZ() - block.getLocation().getZ();
-                        block.setVelocity(new Vector(xDiff > 0 ? -0.12 : 0.12, block.getVelocity().getY() + 0.03, zDiff > 0 ? -0.12 : 0.12));
+                        block.setVelocity(new Vector(movedX / 5, block.getVelocity().getY() + 0.02, movedZ / 5));
                     }
                 }
             }
