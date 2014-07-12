@@ -11,7 +11,7 @@ public class TestCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
         if (sender.isOp() && sender instanceof Player) {
-            NaturalEvent.getEvents().get(1).start(((Player) sender).getTargetBlock(null, 10), new Random().nextInt(500));
+            NaturalEvent.getEvents().get(2).start(((Player) sender).getTargetBlock(null, 10), new Random().nextInt(500));
         }
         return false;
     }

@@ -4,6 +4,7 @@ import com.tenjava.entries.PaulBGD.t3.commands.TestCommand;
 import com.tenjava.entries.PaulBGD.t3.events.NaturalEvent;
 import com.tenjava.entries.PaulBGD.t3.events.air.Tornado;
 import com.tenjava.entries.PaulBGD.t3.events.land.MudslideEvent;
+import com.tenjava.entries.PaulBGD.t3.events.water.Flood;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +30,7 @@ public class TenJava extends JavaPlugin {
 
         new MudslideEvent();
         new Tornado();
+        new Flood();
     }
 
     public static TenJava getPlugin() {
