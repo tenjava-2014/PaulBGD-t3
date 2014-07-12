@@ -92,22 +92,4 @@ public class MudslideEvent extends NaturalEvent implements Listener {
         return (allowedTypes.contains(block.getType()) || (block.getType() == Material.STONE && block.getRelative(BlockFace.UP).getType() != Material.STONE)) && !timings.get(id).contains(block) && block.getY() > TenJava.heightLevel + 3 && block.getLocation().distanceSquared(original.getLocation()) < 250;
     }
 
-    @EventHandler
-    public void onFallingBreak(ItemSpawnEvent event) {
-        for (Entity entity : event.getEntity().getNearbyEntities(1.5, 1.5, 1.5)) {
-            if (entity.getType() == EntityType.FALLING_BLOCK) {
-                FallingBlock block = (FallingBlock) entity;
-                if (block.getMaterial() == event.getEntity().getItemStack().getType()) {
-                    for(int i = event.getLocation().getBlockY(); i > 0; i--) {
-                        Location location = event.getLocation().clone().subtract(0, i, 0);
-                        if(location.getBlock().isEmpty()) {
-                            event.getLocation().getBlock().setTypeIdAndData(block.getMaterial().getId(), block.getBlockData(), true);
-                        }
-                    }
-                    event.setCancelled(true);
-                }
-            }
-        }
-    }
-
 }

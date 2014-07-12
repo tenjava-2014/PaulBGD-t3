@@ -2,6 +2,7 @@ package com.tenjava.entries.PaulBGD.t3.events.air;
 
 import com.tenjava.entries.PaulBGD.t3.TenJava;
 import com.tenjava.entries.PaulBGD.t3.events.NaturalEvent;
+import com.tenjava.entries.PaulBGD.t3.utils.Timer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -50,6 +51,7 @@ public class Tornado extends NaturalEvent {
 
         @Override
         public void run() {
+            Timer timer = new Timer();
             double movedX = direction(TenJava.getRandom().nextInt(2));
             double movedZ = direction(TenJava.getRandom().nextInt(2));
             location.add(movedX, 0, movedZ);
@@ -59,8 +61,9 @@ public class Tornado extends NaturalEvent {
             while (!location.getBlock().getRelative(BlockFace.UP).isEmpty()) {
                 location.add(0, 1, 0);
             }
+            timer.time("Move tornado");
             for (BlockFace face : relative) {
-                if(TenJava.getRandom().nextInt(3) == 0) {
+                if (TenJava.getRandom().nextInt(3) == 0) {
                     continue;
                 }
                 Block block = location.getBlock().getRelative(face);
@@ -69,33 +72,40 @@ public class Tornado extends NaturalEvent {
                     byte data = block.getData();
                     block.setType(Material.AIR);
                     FallingBlock fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation(), type, data);
+                    fallingBlock.setVelocity(new Vector(0, 1, 0));
                     blocks.add(fallingBlock);
                     for (Entity entity : fallingBlock.getNearbyEntities(1.5, 1.5, 1.5)) {
-                        blocks.add(entity);
+                        if (!blocks.contains(entity)) {
+                            blocks.add(entity);
+                        }
                     }
                 }
             }
+            timer.time("Toss up new blocks");
             Iterator<Entity> it = blocks.iterator();
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 Entity block = it.next();
-                if(!block.isValid()) {
+                if (!block.isValid()) {
                     it.remove();
                     continue;
                 }
                 if (block.getLocation().getY() >= location.getY()) {
-                    double twoDistance = twoDimesionalDistance(block.getLocation(), location);
+                    double twoDistance = twoDimensionalDistance(block.getLocation(), location);
                     if (twoDistance < 100) {
-                        block.setVelocity(new Vector(movedX / 5, block.getVelocity().getY() + 0.02, movedZ / 5));
+                        block.setVelocity(block.getVelocity().add(new Vector(movedX / 3, block.getVelocity().getY() + 0.05, movedZ / 3)));
+                        continue;
                     }
                 }
+                it.remove();
             }
-
+            timer.time("Update old blocks");
+            timer.print();
             if (duration++ > maxDuration) {
                 this.cancel();
             }
         }
 
-        private double twoDimesionalDistance(Location l1, Location l2) {
+        private double twoDimensionalDistance(Location l1, Location l2) {
             return Math.abs(l1.getX() - l2.getX()) + (l1.getZ() - l2.getZ());
         }
 
