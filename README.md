@@ -43,6 +43,6 @@ Permissions
 API
 ----
 First check if you can create the disaster with
-``NaturalDisaster.canCreateDisaster(Disaster.XXXX, block)`
+``NaturalDisaster.canCreateDisaster(Disaster.XXXX, block)``
 After you know you can, apply the disaster with
 ``NaturalDisaster.createDisaster(Disaster.XXXX, block)``
