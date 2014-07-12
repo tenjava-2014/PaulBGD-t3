@@ -91,14 +91,16 @@ public class Tornado extends NaturalEvent {
                     it.remove();
                     continue;
                 }
-                /*if (block.getLocation().getY() >= location.getY()) {
+                if (block.getLocation().getY() >= location.getY()) {
                     double twoDistance = twoDimensionalDistance(block.getLocation(), location);
                     if (twoDistance < 100) {
-                        block.setVelocity(block.getVelocity().add(new Vector(movedX / 3, block.getVelocity().getY() + 0.05, movedZ / 3)));
-                        continue;
+                        block.setVelocity(block.getVelocity().add(new Vector(movedX / 3, 0.05, movedZ / 3)));
+                    } else {
+                        it.remove();
                     }
+                } else {
+                    it.remove();
                 }
-                it.remove();*/
             }
             timer.time("Update old blocks");
             if (duration++ > maxDuration) {
