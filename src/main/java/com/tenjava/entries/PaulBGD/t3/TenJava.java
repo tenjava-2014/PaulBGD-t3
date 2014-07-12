@@ -30,6 +30,11 @@ public class TenJava extends JavaPlugin {
         return random;
     }
 
+    /**
+     * Basically loads the event
+     *
+     * @param naturalEvent
+     */
     public static void addWorlds(NaturalEvent naturalEvent) {
         FileConfiguration configuration = instance.getConfig();
         if (!configuration.isSet(naturalEvent.getName())) {
@@ -73,4 +78,5 @@ public class TenJava extends JavaPlugin {
 
         getCommand("disaster").setExecutor(new DisasterCommand());
     }
+
 }
