@@ -54,6 +54,7 @@ public class Tornado extends NaturalEvent {
             Timer timer = new Timer();
             double movedX = direction(TenJava.getRandom().nextInt(2));
             double movedZ = direction(TenJava.getRandom().nextInt(2));
+            System.out.println("x: " + movedX + " z: " + movedZ);
             location.add(movedX, 0, movedZ);
             while (location.getBlock().isEmpty()) {
                 location.subtract(0, 1, 0);
@@ -82,24 +83,24 @@ public class Tornado extends NaturalEvent {
                 }
             }
             timer.time("Toss up new blocks");
+            System.out.println("blocks: " + blocks.size());
             Iterator<Entity> it = blocks.iterator();
             while (it.hasNext()) {
                 Entity block = it.next();
-                if (!block.isValid()) {
+                if (!block.isValid() || block.isDead()) {
                     it.remove();
                     continue;
                 }
-                if (block.getLocation().getY() >= location.getY()) {
+                /*if (block.getLocation().getY() >= location.getY()) {
                     double twoDistance = twoDimensionalDistance(block.getLocation(), location);
                     if (twoDistance < 100) {
                         block.setVelocity(block.getVelocity().add(new Vector(movedX / 3, block.getVelocity().getY() + 0.05, movedZ / 3)));
                         continue;
                     }
                 }
-                it.remove();
+                it.remove();*/
             }
             timer.time("Update old blocks");
-            timer.print();
             if (duration++ > maxDuration) {
                 this.cancel();
             }
