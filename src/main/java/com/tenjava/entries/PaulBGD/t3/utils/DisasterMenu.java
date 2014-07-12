@@ -3,6 +3,7 @@ package com.tenjava.entries.PaulBGD.t3.utils;
 import com.tenjava.entries.PaulBGD.t3.NaturalDisasterStarter;
 import com.tenjava.entries.PaulBGD.t3.TenJava;
 import com.tenjava.entries.PaulBGD.t3.events.NaturalEvent;
+import java.util.Arrays;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -20,6 +21,7 @@ public class DisasterMenu extends GUI {
             ItemStack item = new ItemStack(event.getItem());
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(String.format("%s%s%s", ChatColor.AQUA, ChatColor.BOLD, event.getName()));
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Creates a " + event.getName() + " where you", ChatColor.GRAY + "are looking!"));
             item.setItemMeta(meta);
             this.addItem(item);
         }

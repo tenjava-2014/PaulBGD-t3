@@ -1,4 +1,4 @@
-name: NetherInfiltration-T3
+name: NaturalDisasters-T3
 main: com.tenjava.entries.PaulBGD.t3.TenJava
 version: '${project.version}'
 

@@ -69,14 +69,10 @@ public class Tornado extends NaturalEvent {
                     fallingBlock.setDropItem(false);
                     fallingBlock.teleport(fallingBlock.getLocation().add(0, 1, 0));
                     blocks.add(fallingBlock);
-                    for (Entity entity : fallingBlock.getNearbyEntities(1.5, 1.5, 1.5)) {
-                        if (!blocks.contains(entity)) {
-                            blocks.add(entity);
-                        }
-                    }
                 }
             }
             Iterator<Entity> it = blocks.iterator();
+            List<Entity> toAdd = new ArrayList<>();
             while (it.hasNext()) {
                 Entity block = it.next();
                 if (!block.isValid() || block.isDead()) {
@@ -86,6 +82,11 @@ public class Tornado extends NaturalEvent {
                 if (block.getLocation().getY() >= location.getY() && block.getLocation().getY() - location.getY() < 40) {
                     double twoDistance = twoDimensionalDistance(block.getLocation(), location);
                     if (twoDistance < 16) {
+                        for (Entity entity : block.getNearbyEntities(4, 4, 4)) {
+                            if (!blocks.contains(entity)) {
+                                toAdd.add(entity);
+                            }
+                        }
                         block.setVelocity(new Vector(movedX / 3 + direction(TenJava.getRandom().nextDouble() / 2), 0.09 + direction(TenJava.getRandom().nextDouble()), movedZ / 3 + direction(TenJava.getRandom().nextDouble() / 2)));
                     } else {
                         it.remove();
@@ -94,6 +95,7 @@ public class Tornado extends NaturalEvent {
                     it.remove();
                 }
             }
+            blocks.addAll(toAdd);
             if (duration++ > maxDuration) {
                 this.cancel();
             }

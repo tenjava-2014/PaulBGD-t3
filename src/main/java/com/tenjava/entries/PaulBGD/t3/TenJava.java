@@ -12,7 +12,6 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.WorldType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,7 +36,7 @@ public class TenJava extends JavaPlugin {
             configuration.set(naturalEvent.getName() + ".Chance", naturalEvent.getChance());
             List<String> allowedWorlds = new ArrayList<>();
             for (World world : Bukkit.getWorlds()) {
-                if (world.getWorldType() == WorldType.NORMAL) {
+                if (world.getEnvironment() == World.Environment.NORMAL) {
                     allowedWorlds.add(world.getName());
                 }
             }

@@ -44,6 +44,7 @@ public class MudslideEvent extends NaturalEvent implements Listener {
         if (canMudslide(block, id)) {
             checkBlockForMudslide(block, id);
         }
+        timings.remove(id);
     }
 
     private void mudslideAfter(Block block, int id) {

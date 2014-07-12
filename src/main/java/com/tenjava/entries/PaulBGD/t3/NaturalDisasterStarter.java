@@ -39,7 +39,7 @@ public class NaturalDisasterStarter extends BukkitRunnable {
                                             }
                                         }
                                         block = block.getRelative(BlockFace.DOWN);
-                                        if (disaster.canOccur(block) && TenJava.getRandom().nextInt(10000000) < disaster.getChance()) {
+                                        if (disaster.canOccur(block) && TenJava.getRandom().nextInt(5000000) < disaster.getChance()) {
                                             TenJava.getPlugin().getLogger().info("Disaster!: " + disaster.getName());
                                             disaster.start(block, id++);
                                         }
