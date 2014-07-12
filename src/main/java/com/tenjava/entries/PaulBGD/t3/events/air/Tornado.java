@@ -36,7 +36,7 @@ public class Tornado extends NaturalEvent {
 
     public class TornadoObject extends BukkitRunnable {
 
-        private final int maxDuration = (20 + TenJava.getRandom().nextInt(100)) * 10;
+        private final int maxDuration = (20 + TenJava.getRandom().nextInt(80)) * 4;
         List<Entity> blocks = new ArrayList<>();
         private int duration = 0;
         private Location location;
@@ -44,7 +44,7 @@ public class Tornado extends NaturalEvent {
         public TornadoObject(Location start) {
             this.location = start;
 
-            this.runTaskTimer(TenJava.getPlugin(), 2, 2);
+            this.runTaskTimer(TenJava.getPlugin(), 5, 5);
         }
 
         @Override

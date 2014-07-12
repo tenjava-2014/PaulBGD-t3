@@ -77,6 +77,7 @@ public class TenJava extends JavaPlugin {
         new NaturalDisasterStarter();
 
         getCommand("disaster").setExecutor(new DisasterCommand());
+
     }
 
 }
