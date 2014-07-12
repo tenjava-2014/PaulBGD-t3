@@ -1,6 +1,6 @@
 package com.tenjava.entries.PaulBGD.t3;
 
-import com.tenjava.entries.PaulBGD.t3.commands.TestCommand;
+import com.tenjava.entries.PaulBGD.t3.commands.DisasterCommand;
 import com.tenjava.entries.PaulBGD.t3.events.NaturalEvent;
 import com.tenjava.entries.PaulBGD.t3.events.air.Tornado;
 import com.tenjava.entries.PaulBGD.t3.events.land.MudslideEvent;
@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.WorldType;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,21 +18,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class TenJava extends JavaPlugin {
 
-    private static TenJava instance;
     private static final Random random = new Random();
-
     public static int heightLevel = 63;
-
-    @Override
-    public void onEnable() {
-        instance = this;
-
-        new MudslideEvent();
-        new Tornado();
-        new Flood();
-
-        new NaturalDisasterStarter();
-    }
+    public static String title = String.format("%s%s%s: ", ChatColor.RED, ChatColor.BOLD, "Natural Disasters");
+    private static TenJava instance;
 
     public static TenJava getPlugin() {
         return instance;
@@ -70,5 +60,18 @@ public class TenJava extends JavaPlugin {
             configuration.set(naturalEvent.getName() + ".Worlds", allowedWorlds);
             instance.saveConfig();
         }
+    }
+
+    @Override
+    public void onEnable() {
+        instance = this;
+
+        new MudslideEvent();
+        new Tornado();
+        new Flood();
+
+        new NaturalDisasterStarter();
+
+        getCommand("disaster").setExecutor(new DisasterCommand());
     }
 }

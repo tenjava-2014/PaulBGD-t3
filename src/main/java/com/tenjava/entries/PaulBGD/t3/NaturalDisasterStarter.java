@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class NaturalDisasterStarter extends BukkitRunnable {
 
-    private int id = 0;
+    public static int id = 0;
 
     public NaturalDisasterStarter() {
         this.runTaskTimer(TenJava.getPlugin(), 5 * 20l, 5 * 20l);

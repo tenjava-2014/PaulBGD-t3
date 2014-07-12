@@ -19,7 +19,7 @@ public class Tornado extends NaturalEvent {
     private final BlockFace[] relative = BlockFace.values();
 
     public Tornado() {
-        super("Tornado", 1);
+        super("Tornado", 1, Material.FEATHER);
 
         NaturalEvent.getEvents().add(this);
     }

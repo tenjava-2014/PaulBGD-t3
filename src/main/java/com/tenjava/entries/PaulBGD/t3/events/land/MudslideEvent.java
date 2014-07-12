@@ -23,7 +23,7 @@ public class MudslideEvent extends NaturalEvent implements Listener {
     private final HashMap<Integer, List<Block>> timings = new HashMap<>();
 
     public MudslideEvent() {
-        super("Mudslide", 3);
+        super("Mudslide", 3, Material.DIRT);
 
         NaturalEvent.getEvents().add(this);
         Bukkit.getPluginManager().registerEvents(this, TenJava.getPlugin());
@@ -31,11 +31,14 @@ public class MudslideEvent extends NaturalEvent implements Listener {
 
     @Override
     public boolean canOccur(Block block) {
-        return block.getWorld().getWeatherDuration() > 0 && block.getY() > TenJava.heightLevel + 5 && allowedTypes.contains(block.getType());
+        return allowedTypes.contains(block.getType());
     }
 
     @Override
     public void start(Block block, int id) {
+        if (block.getY() < TenJava.heightLevel + 5 || !block.getWorld().hasStorm()) {
+            return;
+        }
         timings.put(id, new ArrayList<Block>());
 
         if (canMudslide(block, id)) {

@@ -3,6 +3,6 @@ main: com.tenjava.entries.PaulBGD.t3.TenJava
 version: '${project.version}'
 
 commands:
-  test:
-    usage: /test
-    description: is a test command
+  disaster:
+    usage: /disaster
+    description: Opens the disaster menu, to create disasters

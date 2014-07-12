@@ -10,25 +10,26 @@ public class Flood extends NaturalEvent {
     private final BlockFace[] faces = new BlockFace[]{BlockFace.NORTH, BlockFace.WEST, BlockFace.EAST, BlockFace.WEST};
 
     public Flood() {
-        super("Flood", 5);
+        super("Flood", 5, Material.WATER_BUCKET);
 
         NaturalEvent.getEvents().add(this);
     }
 
     @Override
     public boolean canOccur(Block block) {
-        return block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER;
+        return (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER) && !block.getRelative(BlockFace.UP).getType().equals(Material.AIR);
     }
 
     @Override
     public void start(Block block, int id) {
-        while (block.getRelative(BlockFace.UP).getType() == Material.STATIONARY_WATER || block.getRelative(BlockFace.UP).getType() == Material.WATER) {
-            block = block.getRelative(BlockFace.UP);
+        block = block.getRelative(BlockFace.UP);
+        block.setType(Material.WATER);
+        for (BlockFace face : faces) {
+            Block relative = block.getRelative(face);
+            if (relative.getRelative(BlockFace.UP).getType() == Material.AIR) {
+                relative.setType(Material.WATER);
+            }
         }
-        if (!block.getRelative(BlockFace.UP).getType().equals(Material.AIR)) {
-            return;
-        }
-        block.getRelative(BlockFace.UP).setType(Material.WATER);
     }
 
 }
