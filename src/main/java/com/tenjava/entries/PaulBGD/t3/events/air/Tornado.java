@@ -2,6 +2,8 @@ package com.tenjava.entries.PaulBGD.t3.events.air;
 
 import com.tenjava.entries.PaulBGD.t3.TenJava;
 import com.tenjava.entries.PaulBGD.t3.events.NaturalEvent;
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -35,6 +37,7 @@ public class Tornado extends NaturalEvent {
 
         private final int maxDuration = (20 + TenJava.getRandom().nextInt(100)) * 10;
         private int duration = 0;
+        List<Entity> blocks = new ArrayList<>();
 
         private Location location;
 
@@ -53,7 +56,6 @@ public class Tornado extends NaturalEvent {
             while (!location.getBlock().getRelative(BlockFace.UP).isEmpty()) {
                 location.add(0, 1, 0);
             }
-            int blocks = 0;
             for (BlockFace face : relative) {
                 if(TenJava.getRandom().nextInt(3) == 0) {
                     continue;
@@ -63,11 +65,10 @@ public class Tornado extends NaturalEvent {
                     Material type = block.getType();
                     byte data = block.getData();
                     block.setType(Material.AIR);
-                    blocks++;
                     FallingBlock fallingBlock = block.getWorld().spawnFallingBlock(block.getLocation(), type, data);
-                    fallingBlock.setVelocity(new Vector(0, TenJava.getRandom().nextDouble() * TenJava.getRandom().nextInt(3), 0));
+                    blocks.add(fallingBlock);
                     for (Entity entity : fallingBlock.getNearbyEntities(1.5, 1.5, 1.5)) {
-                        entity.setVelocity(entity.getVelocity().setY(1));
+                        blocks.add(entity);
                     }
                 }
             }
