@@ -3,6 +3,7 @@ package com.tenjava.entries.PaulBGD.t3.events.air;
 import com.tenjava.entries.PaulBGD.t3.TenJava;
 import com.tenjava.entries.PaulBGD.t3.events.NaturalEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -72,6 +73,7 @@ public class Tornado extends NaturalEvent {
                     }
                 }
             }
+            Iterator<Entity> it = blocks.iterator();
             for (FallingBlock block : location.getWorld().getEntitiesByClass(FallingBlock.class)) {
                 System.out.println("Found block " + block.getLocation().getY() + " " + location.getY());
                 if (block.getLocation().getY() >= location.getY()) {
