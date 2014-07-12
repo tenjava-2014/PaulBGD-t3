@@ -34,15 +34,15 @@ Usage
 
 Permissions
 -----
-naturaldisasters.menu - Opens the Natural Disasters menu
+- naturaldisasters.menu - Opens the Natural Disasters menu
 
-naturaldisasters.tornado - Allows you to create a tornado
-naturaldisasters.mudslide - Allows you to create a mudslide
-naturaldisasters.flood - Allows you to create a flood
+- naturaldisasters.tornado - Allows you to create a tornado
+- naturaldisasters.mudslide - Allows you to create a mudslide
+- naturaldisasters.flood - Allows you to create a flood
 
 API
 ----
 First check if you can create the disaster with
-[code]NaturalDisaster.canCreateDisaster(Disaster.XXXX, block)[/code]
+``NaturalDisaster.canCreateDisaster(Disaster.XXXX, block)`
 After you know you can, apply the disaster with
-[code]NaturalDisaster.createDisaster(Disaster.XXXX, block)[/code]
+``NaturalDisaster.createDisaster(Disaster.XXXX, block)``
